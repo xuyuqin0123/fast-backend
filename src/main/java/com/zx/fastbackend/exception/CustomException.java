@@ -1,0 +1,28 @@
+package com.zx.fastbackend.exception;
+
+/**
+ * @author xuyuqin
+ * @create 2019-04-27 22:23
+ **/
+public class CustomException extends Exception {
+
+    public CustomException() {
+        super();
+    }
+
+    public CustomException(String message) {
+        super(message);
+    }
+
+    public CustomException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public CustomException(Throwable cause) {
+        super(cause);
+    }
+
+    protected CustomException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
+}
