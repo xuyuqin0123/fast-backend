@@ -60,6 +60,7 @@ public class ShiroConfig {
         urlFilter.put("/user/signin","anon" );
         urlFilter.put("/user/register","anon" );
         urlFilter.put("/**","jwt" );
+        urlFilter.put("/**","anon" );
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(urlFilter);
         return shiroFilterFactoryBean;

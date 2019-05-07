@@ -1,20 +1,38 @@
 package com.zx.fastbackend.entity;
 
+import javax.persistence.*;
+import java.util.Objects;
+
 /**
  * @author xuyuqin
- * @create 2019-04-28 16:23
+ * @create 2019-05-07 10:56
  **/
+@Entity
+@Table(name = "sys_user")
 public class SysUser {
-    private String id;
+    private int id;
     private String username;
     private String password;
     private String mobile;
-    private String salt;
     private String email;
-    private String age;
+    private String salt;
+    private Integer age;
     private String sex;
     private String address;
+    private String status;
 
+    @Id
+    @Column(name = "id")
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Basic
+    @Column(name = "username")
     public String getUsername() {
         return username;
     }
@@ -23,6 +41,8 @@ public class SysUser {
         this.username = username;
     }
 
+    @Basic
+    @Column(name = "password")
     public String getPassword() {
         return password;
     }
@@ -31,6 +51,8 @@ public class SysUser {
         this.password = password;
     }
 
+    @Basic
+    @Column(name = "mobile")
     public String getMobile() {
         return mobile;
     }
@@ -39,14 +61,8 @@ public class SysUser {
         this.mobile = mobile;
     }
 
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
+    @Basic
+    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -55,14 +71,28 @@ public class SysUser {
         this.email = email;
     }
 
-    public String getAge() {
+    @Basic
+    @Column(name = "salt")
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    @Basic
+    @Column(name = "age")
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
+    @Basic
+    @Column(name = "sex")
     public String getSex() {
         return sex;
     }
@@ -71,11 +101,23 @@ public class SysUser {
         this.sex = sex;
     }
 
+    @Basic
+    @Column(name = "address")
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Basic
+    @Column(name = "status")
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

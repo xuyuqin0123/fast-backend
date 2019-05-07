@@ -1,17 +1,14 @@
 package com.zx.fastbackend.controller;
 
+import com.zx.fastbackend.dao.UserDao;
 import com.zx.fastbackend.entity.SysUser;
 import com.zx.fastbackend.exception.CustomException;
 import com.zx.fastbackend.service.UserService;
 import com.zx.fastbackend.utils.ResBean;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +22,8 @@ import java.util.Map;
 public class UserController {
     @Autowired
     UserService userService;
+    @Autowired
+    UserDao userDao;
 
     @RequestMapping(value = "/signin",method = RequestMethod.POST)
     public ResBean login(@RequestBody Map<String,String> userMap){
@@ -48,6 +47,12 @@ public class UserController {
         } catch (CustomException e) {
             return ResBean.fail("register info error");
         }
+    }
+
+    @RequestMapping(value = "/{username}",method = RequestMethod.GET)
+    public ResBean getUser(@PathVariable String username){
+        SysUser user=userDao.getUser(username);
+        return ResBean.success(user);
     }
 
     @RequestMapping(value = "/logout",method = RequestMethod.POST)

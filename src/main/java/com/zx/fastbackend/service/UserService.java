@@ -2,14 +2,12 @@ package com.zx.fastbackend.service;
 
 import com.zx.fastbackend.entity.SysUser;
 import com.zx.fastbackend.exception.CustomException;
-import com.zx.fastbackend.utils.ResBean;
 import com.zx.fastbackend.utils.TokenGenerater;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author xuyuqin
@@ -17,7 +15,9 @@ import java.util.List;
  **/
 @Service
 public class UserService {
+
     @Autowired
+//    @Qualifier("secondJdbcTemplate")
     private JdbcTemplate jdbcTemplate;
     private static final String salt="dskjdskdjsldksldksljdksdjks";
 

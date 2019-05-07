@@ -1,22 +1,41 @@
 package com.zx.fastbackend.entity;
 
+import javax.persistence.*;
+import java.util.Objects;
+
 /**
  * @author xuyuqin
- * @create 2019-04-28 22:44
+ * @create 2019-05-07 10:56
  **/
+@Entity
+@Table(name = "sys_token")
 public class SysToken {
-    private String id;
+    private int id;
+    private Integer userId;
     private String token;
-    private String userId;
 
-    public String getId() {
+    @Id
+    @Column(name = "id")
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
+    @Basic
+    @Column(name = "user_id")
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    @Basic
+    @Column(name = "token")
     public String getToken() {
         return token;
     }
@@ -25,11 +44,19 @@ public class SysToken {
         this.token = token;
     }
 
-    public String getUserId() {
-        return userId;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SysToken sysToken = (SysToken) o;
+        return id == sysToken.id &&
+                Objects.equals(userId, sysToken.userId) &&
+                Objects.equals(token, sysToken.token);
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, userId, token);
     }
 }

@@ -6,7 +6,6 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -28,11 +27,15 @@ public class CustomRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         JwtToken token= (JwtToken) authenticationToken;
+        if(!"123456".equals(token.getCredentials())){
+            throw new RuntimeException("token错误");
+        }
         String username = "xuyuqin";
         String password = "123456";
         SysUser user=new SysUser();
         user.setUsername(username);
         user.setMobile("13026086597");
+
         return new SimpleAuthenticationInfo(user,token.getPrincipal(), getName());
     }
 
