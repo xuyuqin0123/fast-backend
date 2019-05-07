@@ -12,12 +12,16 @@ spring:
     username: root
     password: Xyqzlp..01190623
     driver-class-name: com.mysql.jdbc.Driver
+    name: frist-datasource
+    hikari:
+      pool-name: pooltest
 
   second-datasource:  #多数据源配置，第二数据源
     url: jdbc:mysql://47.101.161.159:3306/zx
     username: root
     password: Xyqzlp..01190623
     driver-class-name: com.mysql.jdbc.Driver
+    name: two-datasource
 
 
 

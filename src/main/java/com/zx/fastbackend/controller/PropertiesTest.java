@@ -15,8 +15,9 @@ import javax.sql.DataSource;
 public class PropertiesTest {
     @Autowired
     DataSource dataSource;
+
     @GetMapping(value = "properties/test")
-    public ResBean propertiesTest(){
+    public ResBean propertiesTest() {
         return ResBean.success(dataSource.getClass().toString());
     }
 }

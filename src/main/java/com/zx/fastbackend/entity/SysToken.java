@@ -10,27 +10,27 @@ import java.util.Objects;
 @Entity
 @Table(name = "sys_token")
 public class SysToken {
-    private int id;
-    private Integer userId;
+    private String id;
+    private String userId;
     private String token;
 
     @Id
     @Column(name = "id")
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     @Basic
     @Column(name = "user_id")
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

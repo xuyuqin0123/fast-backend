@@ -1,11 +1,18 @@
 package com.zx.fastbackend.config.shiro;
 
+import com.zx.fastbackend.dao.TokenDao;
+import com.zx.fastbackend.dao.UserDao;
 import com.zx.fastbackend.entity.SysUser;
-import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,23 +27,25 @@ public class CustomRealm extends AuthorizingRealm {
         return token instanceof JwtToken;
     }
 
+    @Autowired
+    UserDao userDao;
+
+    @Autowired
+    TokenDao tokenDao;
 
     /**
      * 认证
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        JwtToken token= (JwtToken) authenticationToken;
-        if(!"123456".equals(token.getCredentials())){
-            throw new RuntimeException("token错误");
+        String token = (String) authenticationToken.getCredentials();
+        String userId = tokenDao.getUserIdByToken(token);
+        if (userId == null) {
+            throw new AuthenticationException("token error");
         }
-        String username = "xuyuqin";
-        String password = "123456";
-        SysUser user=new SysUser();
-        user.setUsername(username);
-        user.setMobile("13026086597");
+        SysUser user = userDao.getUserById(userId);
 
-        return new SimpleAuthenticationInfo(user,token.getPrincipal(), getName());
+        return new SimpleAuthenticationInfo(user,token, getName());
     }
 
     /**

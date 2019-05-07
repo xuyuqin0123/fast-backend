@@ -9,8 +9,8 @@ public class ResBean {
     private String message;
     private Object content;
 
-    private static final String SUCCESS="success";
-    private static final String FAIL="fail";
+    private static final String SUCCESS = "success";
+    private static final String FAIL = "fail";
 
     public ResBean(String code) {
         this.code = code;
@@ -51,32 +51,33 @@ public class ResBean {
         this.content = content;
     }
 
-    public static ResBean success(){
+    public static ResBean success() {
         return new ResBean(SUCCESS);
     }
-    public static ResBean success(String message){
-        return new ResBean(SUCCESS,message);
+
+    public static ResBean success(String message) {
+        return new ResBean(SUCCESS, message);
     }
 
-    public static ResBean success(Object content){
-        return new ResBean(SUCCESS,"" ,content);
+    public static ResBean success(Object content) {
+        return new ResBean(SUCCESS, "", content);
     }
 
-    public static ResBean success(String code,String message,Object content){
-        return new ResBean(code,message ,content );
+    public static ResBean success(String code, String message, Object content) {
+        return new ResBean(code, message, content);
     }
 
 
-    public static ResBean fail(){
+    public static ResBean fail() {
         return new ResBean(FAIL);
     }
 
-    public static ResBean fail(String message){
-        return new ResBean(FAIL,message);
+    public static ResBean fail(String message) {
+        return new ResBean(FAIL, message);
     }
 
-    public static ResBean customRes(String code,String message,Object content){
-        return new ResBean(code,message ,content );
+    public static ResBean customRes(String code, String message, Object content) {
+        return new ResBean(code, message, content);
     }
 
 }

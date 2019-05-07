@@ -1,7 +1,6 @@
 package com.zx.fastbackend.entity;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 /**
  * @author xuyuqin
@@ -10,7 +9,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "sys_user")
 public class SysUser {
-    private int id;
+    private String id;
     private String username;
     private String password;
     private String mobile;
@@ -23,11 +22,11 @@ public class SysUser {
 
     @Id
     @Column(name = "id")
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

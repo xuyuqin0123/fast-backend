@@ -9,9 +9,9 @@ import org.junit.Test;
  **/
 public class test {
     @Test
-    public void test(){
-        System.out.println(new Md5Hash("123456789","dskjdskdjsldksldksljdksdjks").toBase64());
-        System.out.println(new Md5Hash("123","123"));
+    public void test() {
+        System.out.println(new Md5Hash("123456789", "dskjdskdjsldksldksljdksdjks").toBase64());
+        System.out.println(new Md5Hash("123", "123"));
 
     }
 }

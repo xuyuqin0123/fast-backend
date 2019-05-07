@@ -4,7 +4,6 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -22,16 +21,16 @@ public class DataSourceConfig {
 
     @Bean
     @Primary
-    @Qualifier("primayProperties")
+    @Qualifier("primaryProperties")
     @ConfigurationProperties(prefix = "spring.datasource")
-    public DataSourceProperties primayProperties(){
+    public DataSourceProperties primaryProperties() {
         return new DataSourceProperties();
     }
 
     @Bean
     @Qualifier("secondProperties")
     @ConfigurationProperties(prefix = "spring.second-datasource")
-    public DataSourceProperties secondProperties(){
+    public DataSourceProperties secondProperties() {
         return new DataSourceProperties();
     }
 
@@ -39,26 +38,26 @@ public class DataSourceConfig {
     @Bean
     @Primary
     @Qualifier("datasource")
-    public DataSource primayDataSource(DataSourceProperties dataSourceProperties){
+    public DataSource primaryDataSource(DataSourceProperties dataSourceProperties) {
         return dataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
     }
 
     @Bean
     @Qualifier("second-datasource")
-    public DataSource secondDataSource(@Qualifier("secondProperties") DataSourceProperties dataSourceProperties){
+    public DataSource secondDataSource(@Qualifier("secondProperties") DataSourceProperties dataSourceProperties) {
         return dataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
     }
 
     @Bean
     @Primary
     @Qualifier("jdbcTemplate")
-    public JdbcTemplate jdbcTemplate(DataSource dataSource){
+    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 
     @Bean
     @Qualifier("secondJdbcTemplate")
-    public JdbcTemplate secondJdbcTemplate(@Qualifier("second-datasource") DataSource dataSource){
+    public JdbcTemplate secondJdbcTemplate(@Qualifier("second-datasource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 
