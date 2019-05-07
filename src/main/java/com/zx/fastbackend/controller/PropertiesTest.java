@@ -1,10 +1,11 @@
 package com.zx.fastbackend.controller;
 
-import com.zx.fastbackend.config.dataSource.DataSourceConfig;
 import com.zx.fastbackend.utils.ResBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.sql.DataSource;
 
 /**
  * @author xuyuqin
@@ -13,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PropertiesTest {
     @Autowired
-    DataSourceConfig dataSourceConfig;
+    DataSource dataSource;
     @GetMapping(value = "properties/test")
     public ResBean propertiesTest(){
-        return ResBean.success(dataSourceConfig);
+        return ResBean.success(dataSource.getClass().toString());
     }
 }

@@ -1,15 +1,14 @@
 package com.zx.fastbackend.config.dataSource;
 
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 
@@ -20,19 +19,34 @@ import javax.sql.DataSource;
 
 @Configuration
 public class DataSourceConfig {
+
+    @Bean
+    @Primary
+    @Qualifier("primayProperties")
+    @ConfigurationProperties(prefix = "spring.datasource")
+    public DataSourceProperties primayProperties(){
+        return new DataSourceProperties();
+    }
+
+    @Bean
+    @Qualifier("secondProperties")
+    @ConfigurationProperties(prefix = "spring.second-datasource")
+    public DataSourceProperties secondProperties(){
+        return new DataSourceProperties();
+    }
+
+
     @Bean
     @Primary
     @Qualifier("datasource")
-    @ConfigurationProperties(prefix = "spring.datasource")
-    public DataSource primayDataSource(){
-        return DataSourceBuilder.create().build();
+    public DataSource primayDataSource(DataSourceProperties dataSourceProperties){
+        return dataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
     }
 
     @Bean
     @Qualifier("second-datasource")
-    @ConfigurationProperties(prefix = "spring.second-datasource")
-    public DataSource secondDataSource(){
-        return DataSourceBuilder.create().build();
+    public DataSource secondDataSource(@Qualifier("secondProperties") DataSourceProperties dataSourceProperties){
+        return dataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
     }
 
     @Bean
@@ -47,4 +61,5 @@ public class DataSourceConfig {
     public JdbcTemplate secondJdbcTemplate(@Qualifier("second-datasource") DataSource dataSource){
         return new JdbcTemplate(dataSource);
     }
+
 }
