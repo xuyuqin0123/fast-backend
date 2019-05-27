@@ -1,8 +1,9 @@
 package com.zx.fastbackend.config.shiro;
 
-import com.alibaba.fastjson.JSONObject;
+import com.zx.fastbackend.utils.HttpUtils;
 import com.zx.fastbackend.utils.ResBean;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
@@ -13,9 +14,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author xuyuqin
@@ -36,28 +34,22 @@ public class JWTFilter extends AuthenticatingFilter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String token = request.getHeader("token");
         if (StringUtils.isEmpty(token)) {
-            responseWrite(ResBean.fail("unauthorized request"), response);
+            HttpUtils.responseWrite(ResBean.fail("unauthorized request"), response);
             return false;
         } else {
             return executeLogin(request, response);
         }
     }
 
-    private void responseWrite(ResBean resBean, HttpServletResponse response) throws IOException {
-        response.setCharacterEncoding("utf-8");
-        response.setContentType("application/json; charset=utf-8");
-        PrintWriter writer = response.getWriter();
-        Map<String, String> map = new HashMap<>();
-        writer.write(JSONObject.toJSONString(resBean));
-    }
 
     @Override
     protected boolean executeLogin(ServletRequest request, ServletResponse response) {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
-        JwtToken token = new JwtToken(httpRequest.getHeader("token"));
-        if (token == null) {
-            String msg = "createToken method implementation returned null. A valid non-null AuthenticationToken must be created in order to execute a login attempt.";
-            throw new IllegalStateException(msg);
+        String tokenCode=httpRequest.getHeader("token");
+        JwtToken token = new JwtToken(tokenCode);
+        if (tokenCode==null) {
+            String msg = "";
+            throw new AuthenticationException("no token");
         } else {
             try {
                 Subject subject = SecurityUtils.getSubject();
@@ -66,7 +58,7 @@ public class JWTFilter extends AuthenticatingFilter {
             } catch (Exception var) {
                 System.out.println(var);
                 try {
-                    responseWrite(ResBean.fail("error token"), (HttpServletResponse) response);
+                    HttpUtils.responseWrite(ResBean.fail("error token"), (HttpServletResponse) response);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -79,4 +71,6 @@ public class JWTFilter extends AuthenticatingFilter {
     protected AuthenticationToken createToken(ServletRequest servletRequest, ServletResponse servletResponse) throws Exception {
         return null;
     }
+
+
 }

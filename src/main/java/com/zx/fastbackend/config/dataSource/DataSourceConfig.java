@@ -21,7 +21,6 @@ public class DataSourceConfig {
 
     @Bean
     @Primary
-    @Qualifier("primaryProperties")
     @ConfigurationProperties(prefix = "spring.datasource")
     public DataSourceProperties primaryProperties() {
         return new DataSourceProperties();
@@ -37,7 +36,6 @@ public class DataSourceConfig {
 
     @Bean
     @Primary
-    @Qualifier("datasource")
     public DataSource primaryDataSource(DataSourceProperties dataSourceProperties) {
         return dataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
     }
@@ -50,7 +48,6 @@ public class DataSourceConfig {
 
     @Bean
     @Primary
-    @Qualifier("jdbcTemplate")
     public JdbcTemplate jdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }

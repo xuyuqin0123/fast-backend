@@ -1,13 +1,11 @@
 package com.zx.fastbackend.dao;
 
 import com.zx.fastbackend.entity.SysToken;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectKey;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Component;
 
-@Repository
+@Mapper
+@Component
 public interface TokenDao {
     @Select("select user_id from sys_token where token = #{token}")
     String getUserIdByToken(@Param("token") String token);

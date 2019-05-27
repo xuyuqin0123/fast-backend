@@ -54,9 +54,10 @@ public class UserController {
         }
     }
 
+
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
     public ResBean getUser(@PathVariable String username) {
-        SysUser user = userDao.getUser(username);
+        SysUser user = userDao.getUserByUsername(username);
         return ResBean.success(user);
     }
 

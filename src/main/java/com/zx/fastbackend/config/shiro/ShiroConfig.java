@@ -49,7 +49,9 @@ public class ShiroConfig {
         Map<String, String> urlFilter = new LinkedHashMap<>();
         urlFilter.put("/user/signin", "anon");
         urlFilter.put("/user/register", "anon");
-        urlFilter.put("/**", "jwt");
+        urlFilter.put("/helloworld","anon" );
+//        urlFilter.put("/**", "jwt");
+        urlFilter.put("/**", "anon");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(urlFilter);
         return shiroFilterFactoryBean;

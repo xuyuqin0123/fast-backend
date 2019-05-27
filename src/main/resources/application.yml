@@ -22,6 +22,9 @@ spring:
     password: Xyqzlp..01190623
     driver-class-name: com.mysql.jdbc.Driver
     name: two-datasource
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+
 
 
 

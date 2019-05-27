@@ -1,13 +1,11 @@
 package com.zx.fastbackend.entity;
 
-import javax.persistence.*;
 
 /**
  * @author xuyuqin
  * @create 2019-05-07 10:56
  **/
-@Entity
-@Table(name = "sys_user")
+
 public class SysUser {
     private String id;
     private String username;
@@ -20,8 +18,7 @@ public class SysUser {
     private String address;
     private String status;
 
-    @Id
-    @Column(name = "id")
+
     public String getId() {
         return id;
     }
@@ -30,8 +27,6 @@ public class SysUser {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "username")
     public String getUsername() {
         return username;
     }
@@ -40,8 +35,6 @@ public class SysUser {
         this.username = username;
     }
 
-    @Basic
-    @Column(name = "password")
     public String getPassword() {
         return password;
     }
@@ -50,8 +43,6 @@ public class SysUser {
         this.password = password;
     }
 
-    @Basic
-    @Column(name = "mobile")
     public String getMobile() {
         return mobile;
     }
@@ -60,8 +51,6 @@ public class SysUser {
         this.mobile = mobile;
     }
 
-    @Basic
-    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -70,8 +59,6 @@ public class SysUser {
         this.email = email;
     }
 
-    @Basic
-    @Column(name = "salt")
     public String getSalt() {
         return salt;
     }
@@ -80,8 +67,6 @@ public class SysUser {
         this.salt = salt;
     }
 
-    @Basic
-    @Column(name = "age")
     public Integer getAge() {
         return age;
     }
@@ -90,8 +75,6 @@ public class SysUser {
         this.age = age;
     }
 
-    @Basic
-    @Column(name = "sex")
     public String getSex() {
         return sex;
     }
@@ -100,8 +83,6 @@ public class SysUser {
         this.sex = sex;
     }
 
-    @Basic
-    @Column(name = "address")
     public String getAddress() {
         return address;
     }
@@ -110,8 +91,6 @@ public class SysUser {
         this.address = address;
     }
 
-    @Basic
-    @Column(name = "status")
     public String getStatus() {
         return status;
     }

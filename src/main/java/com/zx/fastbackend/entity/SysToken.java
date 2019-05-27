@@ -1,21 +1,18 @@
 package com.zx.fastbackend.entity;
 
-import javax.persistence.*;
 import java.util.Objects;
 
 /**
  * @author xuyuqin
  * @create 2019-05-07 10:56
  **/
-@Entity
-@Table(name = "sys_token")
+
 public class SysToken {
     private String id;
     private String userId;
     private String token;
 
-    @Id
-    @Column(name = "id")
+
     public String getId() {
         return id;
     }
@@ -24,8 +21,7 @@ public class SysToken {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "user_id")
+
     public String getUserId() {
         return userId;
     }
@@ -34,8 +30,7 @@ public class SysToken {
         this.userId = userId;
     }
 
-    @Basic
-    @Column(name = "token")
+
     public String getToken() {
         return token;
     }
